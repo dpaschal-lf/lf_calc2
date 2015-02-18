@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<style>
+.calc_container{
+    width: 400px;
+    text-align: center;
+}
+.calc_container input{
+    margin-top:10px;
+}
+.number_keys{
+    text-align: center;
+    width: 100%;
+    margin: 20px 0px;
+}
+</style>
+<script>
+    var number_array=['',''];
+    var number_index=0;
+    var operator='';
+    var error='';
+    var result=null;    
+    
+    function add_numbers(num1, num2){
+        return num1+num2;
+    }
+    function subtract_numbers(num1, num2){
+        return num1-num2;
+    }
+    function multiply_numbers(num1, num2){
+        return num1*num2;
+    }
+    function divide_numbers(num1, num2){
+        if(num2!=0){
+            return num1/num2;
+        }
+        else{
+            error='Cannot divide by 0!';
+            return false;
+        }
+    }
+    function calculate(){
+
+        switch(operator){
+                case '+':
+                    result = add_numbers(parseInt(number_array[0]), parseInt(number_array[1]));
+                    break;
+                case '-':
+                    result = subtract_numbers(parseInt(number_array[0]), parseInt(number_array[1]));
+                    break;
+                case '*':
+                    result = multiply_numbers(parseInt(number_array[0]), parseInt(number_array[1]));
+                    break;
+                case '/':
+                    result = divide_numbers(parseInt(number_array[0]), parseInt(number_array[1]));
+                    break;
+        }
+        document.querySelector('#result').value=result;
+        reset_calculator();
+        
+        
+    }
+    function reset_calculator(){
+        document.querySelector('#input').value='';
+        number_array=['',''];
+        number_index=0;       
+    }
+    
+    function add_number(digit){
+        if(result!==null){
+            result=null;
+            document.querySelector('#result').value='';
+        }
+        document.querySelector('#input').value+=digit;
+        number_array[number_index]+=digit;
+    }
+    function add_operator(input_operator)
+    {
+        document.querySelector('#input').value+=input_operator;
+        operator = input_operator;
+        number_index=1;
+    }
+</script>
+</head>
+<body>
+    <div class="calc_container">
+        <input type="text" id="input" placeholder="input" disabled/><br>
+        <input type="text" id="result" placeholder="result"/><br>
+
+        <div class="number_keys">
+            <button type="button" onclick="add_number('1')">1</button>
+            <button type="button" onclick="add_number('2')">2</button>
+            <button type="button" onclick="add_number('3')">3</button><br>
+            <button type="button" onclick="add_number('4')">4</button>
+            <button type="button" onclick="add_number('5')">5</button>
+            <button type="button" onclick="add_number('6')">6</button><br>
+            <button type="button" onclick="add_number('7')">7</button>
+            <button type="button" onclick="add_number('8')">8</button>
+            <button type="button" onclick="add_number('9')">9</button><br>
+            <button type="button" onclick="add_number('0')">0</button>
+        </div>
+        <button type="button" id="add" onclick="add_operator('+');">+</button>
+        <button type="button" id="add" onclick="add_operator('-');">-</button>
+        <button type="button" id="add" onclick="add_operator('*');">*</button>
+        <button type="button" id="add" onclick="add_operator('/');">/</button>
+        <button type="button" id="add" onclick="reset_calculator();">C</button>
+        <button type="button" id="calculate" onclick="calculate()">=</button>
+    </div>
+
+
+
+</body>
+</html>
